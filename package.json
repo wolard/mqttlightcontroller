@@ -13,9 +13,9 @@
     "async-mqtt": "^2.6.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
+    "mongoose": "^6.1.4",
     "mqtt": "^4.3.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wolard/mqttlightcontroller.git"
