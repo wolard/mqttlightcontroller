@@ -12,7 +12,7 @@ const io = new Server(server,{
   },
 });
 const initDb = require('./db/db');
-
+let socket
 initDb()
  
 app.use(express.json());
@@ -35,7 +35,13 @@ io.on('connection', (socket) => {
   console.log(reason)
   });
   socket.on("ledwall", (data) => {
-    console.log(data)
-    });
+    handleMqtt(data)
+     });
 });
 
+
+  const handleMqtt=(data)=>{
+console.log(data)
+
+
+  }

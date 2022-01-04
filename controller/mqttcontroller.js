@@ -1,5 +1,4 @@
 const MQTT = require("async-mqtt");
-const { status } = require("express/lib/response");
 
 const client = MQTT.connect("tcp://192.168.1.201:1883");
 
