@@ -6,13 +6,13 @@ const cors = require('cors')
 const port = 3005
 const router = require('./router/router.js');
 const { Server } = require("socket.io");
+const MqttController = require('./controller/mqttcontroller')
 const io = new Server(server,{
   cors: {
     origin: "*",
   },
 });
 const initDb = require('./db/db');
-let socket
 initDb()
  
 app.use(express.json());
@@ -35,13 +35,10 @@ io.on('connection', (socket) => {
   console.log(reason)
   });
   socket.on("ledwall", (data) => {
-    handleMqtt(data)
+    MqttController.addToQueue(data)
+    //MqttController.setLEd(data)
+
      });
 });
 
 
-  const handleMqtt=(data)=>{
-console.log(data)
-
-
-  }

@@ -7,6 +7,7 @@ const LedSchema = new Schema({
   num: String,
   posX: Number,
   posY: Number,
+  radius: Number,
   r:Number,
   g:Number,
   b:Number,
