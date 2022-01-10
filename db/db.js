@@ -9,7 +9,7 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
     .catch(error => console.log(error));
  
 const db = mongoose.connection;
-//Led.collection.drop()
+Led.collection.drop()
 const generateBackWallSpots = ()=>{
   return [...Array(117)].map((_, i) => ({
     num: (117-i).toString(),
