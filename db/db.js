@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Led = require('../models/ledmodel');
-const mongoDB = process.env.MONGO_DB||'mongodb://admin:admin@mongodb/lights';
+const mongoDB = process.env.MONGO_DB||'mongodb://mongodb/lights';
 console.log(mongoDB)
 
 const initdb=()=>
