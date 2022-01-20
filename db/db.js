@@ -9,7 +9,7 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
     .catch(error => console.log(error));
  
 const db = mongoose.connection;
-Led.collection.drop()
+//Led.collection.drop()
 const generateFrontkWallSpots = ()=>{
   return [...Array(126)].map((_, i) => ({
     n: (118+92+126-i).toString(),
@@ -93,14 +93,14 @@ const generateWindowWallSpots = ()=>{
   
     }));
   }
-
+/*
 Led.insertMany(generateBackWallSpots())
 Led.insertMany(generateWindowWallSpots())
 Led.insertMany(generateFrontkWallSpots())
 Led.insertMany(generateClosetWallSpots())
 Led.insertMany(generateShortConcreteWallSpots())
 Led.insertMany(generateLongConcreteWallSpots())
-
+*/
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 return db
 }
