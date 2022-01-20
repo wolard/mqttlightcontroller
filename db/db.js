@@ -13,7 +13,7 @@ Led.collection.drop()
 const generateFrontkWallSpots = ()=>{
   return [...Array(126)].map((_, i) => ({
     n: (118+92+126-i).toString(),
-    posX: 5+i*3,
+    posX: 17+i*2,
     posY: 5,
     radius:5,
     r:0,
@@ -27,36 +27,36 @@ const generateFrontkWallSpots = ()=>{
 const generateWindowWallSpots = ()=>{
     return [...Array(92)].map((_, i) => ({
       n: (118+92-i).toString(),
-      posX: 127*3,
-      posY: 5+i*3,
+      posX: 30+127*2,
+      posY: 25+i*2,
       radius:5,
       r:0,
       g:0,
       b:0,
-      a:0
+      a:0 
   
-    }));
+    })); 
   }
   
   const generateBackWallSpots = ()=>{
-    return [...Array(117)].map((_, i) => ({
+    return [...Array(118)].map((_, i) => ({
       n: (i).toString(),
-      posX: 35+i*3,
-      posY: 92*3,
+      posX: 35+i*2,
+      posY: 45+92*2,
       radius:5,
       r:0,
       g:0,
       b:0,
       a:0
   
-    }));
+    })); 
   }
   
   const generateClosetWallSpots = ()=>{
     return [...Array(57)].map((_, i) => ({
-      n: (117+92+126+i).toString(),
+      n: (118+92+126+i).toString(),
       posX: 5,
-      posY: (i*3),
+      posY: 20+(i*2),
       radius:5,
       r:0,
       g:0,
@@ -68,9 +68,9 @@ const generateWindowWallSpots = ()=>{
   
   const generateShortConcreteWallSpots = ()=>{
     return [...Array(10)].map((_, i) => ({
-      n: (117+92+126+57+i).toString(),
-      posX: i*3,
-      posY: (57*3),
+      n: (118+92+126+57+i).toString(),
+      posX: i*2,
+      posY: 35+(57*2),
       radius:5,
       r:0,
       g:0,
@@ -79,12 +79,12 @@ const generateWindowWallSpots = ()=>{
   
     }));
   }
-  
+   
   const generateLongConcreteWallSpots = ()=>{
-    return [...Array(24)].map((_, i) => ({
-      n: (117+92+126+57+10+i).toString(),
-      posX: 10*3,
-      posY: (57*3)+(i*4),
+    return [...Array(23)].map((_, i) => ({
+      n: (118+92+126+57+10+i).toString(),
+      posX: 10*2,
+      posY: 50+(57*2)+(i*2),
       radius:5,
       r:0,
       g:0,
@@ -100,6 +100,7 @@ Led.insertMany(generateFrontkWallSpots())
 Led.insertMany(generateClosetWallSpots())
 Led.insertMany(generateShortConcreteWallSpots())
 Led.insertMany(generateLongConcreteWallSpots())
+
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 return db
 }

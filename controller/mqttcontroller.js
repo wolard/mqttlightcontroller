@@ -3,18 +3,28 @@ const filo=[]
 let feedback
 const Led = require('../models/ledmodel');
 const client = MQTT.connect("tcp://192.168.1.201:1883");
-client.subscribe('ledstatus')
+client.subscribe('initial')
 
 // When passing async functions as event listeners, make sure to have a try catch block
-client.on('message', function (topic, message) {
+client.on('message', async (topic, message)=> {
     // message is Buffer
    //console.log(filo)
    // console.log('done setting led on',message.toString())
-  let item=filo.find(i=>i.num==message.toString())
-  //console.log('filo item',item)
-  filo.pop(item)
-  
-    //todo erase command from array
+ if (topic==='initial')
+ {
+
+
+Led.
+find({}).
+select('r g b a n -_id'). // only return the Persons name
+
+exec( async (err, data)=> {
+   // console.log(data)
+    await client.publish('/rgb',JSON.stringify(data))
+ });
+
+ }
+
   })
 
 exports.setAllLights = async (req, res) =>{
@@ -41,9 +51,9 @@ exports.setAllLights = async (req, res) =>{
        
     {
         await  Led.findOneAndUpdate({n:req.body.rgbArray[i].n},{r:req.body.rgbArray[i].r,g:req.body.rgbArray[i].g,b:req.body.rgbArray[i].b,a:req.body.rgbArray[i].a})
+  
  
- 
-    }
+    } 
     
 
  
