@@ -4,14 +4,14 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const LedSchema = new Schema({
-  num: String,
+  n: String,
   posX: Number,
   posY: Number,
   radius: Number,
   r:Number,
   g:Number,
   b:Number,
-  w:Number
+  a:Number
 });
 
 //Export function to create "SomeModel" model class

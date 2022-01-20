@@ -1,6 +1,7 @@
 const MQTT = require("async-mqtt");
 const filo=[]
 let feedback
+const Led = require('../models/ledmodel');
 const client = MQTT.connect("tcp://192.168.1.201:1883");
 client.subscribe('ledstatus')
 
@@ -16,7 +17,45 @@ client.on('message', function (topic, message) {
     //todo erase command from array
   })
 
+exports.setAllLights = async (req, res) =>{
+    
+    
+    
+    try {
+        
+  
 
+     
+  
+   
+    
+      
+      //await  Led.findOneAndUpdate({n:rgb.n},{r:rgb.r,g:rgb.g,b:rgb.b,a:rgb.a})
+
+  //  await Led.updateMany({n:req.body.n}, {r:req.body.rgbArray.r,g:req.body.rgbArray.g,b:req.body.rgbArray.b,n:req.body.rgbArray.n})
+   
+  // console.log('rgb',JSON.stringify(req.body.rgbArray))
+  //await client.publish('leds',JSON.stringify(req.body))
+  await client.publish('/rgb',JSON.stringify(req.body.rgbArray))
+    for( i=0;i<req.body.rgbArray.length;i++)
+       
+    {
+        await  Led.findOneAndUpdate({n:req.body.rgbArray[i].n},{r:req.body.rgbArray[i].r,g:req.body.rgbArray[i].g,b:req.body.rgbArray[i].b,a:req.body.rgbArray[i].a})
+ 
+ 
+    }
+    
+
+ 
+    res.status(200).send('ok');
+} catch (e){
+    // Do something about it!
+    console.log(e.stack);
+    process.exit();
+}
+
+
+}
 exports.setLights = async(req, res) =>{
    
   
@@ -31,7 +70,7 @@ exports.setLights = async(req, res) =>{
     // This line doesn't run until the server responds to the publish
 //	await client.end();
     // This line doesn't run until the client has disconnected without error
-    console.log("Done");
+    console.log("Doune");
     res.status(200).send('ok');
 } catch (e){
     // Do something about it!
