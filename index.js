@@ -17,6 +17,7 @@ const initDb = require('./db/db');
 initDb()
  
 app.use(express.json());
+
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
     origin: '*'
@@ -36,7 +37,7 @@ io.on('connection', (socket) => {
   console.log(reason)
   });
   socket.on("ledwall", (data) => {
-    MqttController.addToQueue(data)
+    MqttController.effect(data)
     //MqttController.setLEd(data)
 
      });

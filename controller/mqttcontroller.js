@@ -43,8 +43,9 @@ exports.setAllLights = async (req, res) =>{
       //await  Led.findOneAndUpdate({n:rgb.n},{r:rgb.r,g:rgb.g,b:rgb.b,a:rgb.a})
 
   //  await Led.updateMany({n:req.body.n}, {r:req.body.rgbArray.r,g:req.body.rgbArray.g,b:req.body.rgbArray.b,n:req.body.rgbArray.n})
+  let jsonarr=JSON.stringify(req.body.rgbArray)
    
-  // console.log('rgb',JSON.stringify(req.body.rgbArray))
+  // console.log(jsonarr) 
   //await client.publish('leds',JSON.stringify(req.body))
   await client.publish('/rgb',JSON.stringify(req.body.rgbArray))
     for( i=0;i<req.body.rgbArray.length;i++)
@@ -90,6 +91,10 @@ exports.setLights = async(req, res) =>{
 
    // res.send('NOT IMPLEMENTED: Book create POST');
 };
+exports.effect = async(data) =>{
+   
+    await client.publish('effect',JSON.stringify(data))
+}
 exports.addToQueue = async(data) =>{
     filo.push(data)
 }
@@ -98,7 +103,7 @@ exports.addToQueue = async(data) =>{
         setInterval( async () => {
             if (filo.length>0)
             {
-       
+                await client.publish('led',JSON.stringify(comm))
         try {
             let comm=filo.pop()
             console.log('command from array',comm)
