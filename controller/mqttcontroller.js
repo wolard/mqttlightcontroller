@@ -10,6 +10,7 @@ client.on('message', async (topic, message)=> {
     // message is Buffer
    //console.log(filo)
    // console.log('done setting led on',message.toString())
+  /* 
  if (topic==='initial')
  {
 
@@ -24,6 +25,7 @@ exec( async (err, data)=> {
  });
 
  }
+*/
 
   })
 

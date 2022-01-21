@@ -9,9 +9,10 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
     .catch(error => console.log(error));
  
 const db = mongoose.connection;
-//Led.collection.drop()
+
 const generateFrontkWallSpots = ()=>{
   return [...Array(126)].map((_, i) => ({
+    name:'frontwall',
     n: (118+92+126-i).toString(),
     posX: 17+i*2,
     posY: 5,
@@ -26,6 +27,7 @@ const generateFrontkWallSpots = ()=>{
 
 const generateWindowWallSpots = ()=>{
     return [...Array(92)].map((_, i) => ({
+      name:'windowwall',
       n: (118+92-i).toString(),
       posX: 30+127*2,
       posY: 25+i*2,
@@ -40,6 +42,7 @@ const generateWindowWallSpots = ()=>{
   
   const generateBackWallSpots = ()=>{
     return [...Array(118)].map((_, i) => ({
+      name:'backwall',
       n: (i).toString(),
       posX: 35+i*2,
       posY: 45+92*2,
@@ -54,6 +57,7 @@ const generateWindowWallSpots = ()=>{
   
   const generateClosetWallSpots = ()=>{
     return [...Array(57)].map((_, i) => ({
+      name:'closetwall',
       n: (118+92+126+i).toString(),
       posX: 5,
       posY: 20+(i*2),
@@ -68,6 +72,7 @@ const generateWindowWallSpots = ()=>{
   
   const generateShortConcreteWallSpots = ()=>{
     return [...Array(10)].map((_, i) => ({
+      name:'shortconcretewall',
       n: (118+92+126+57+i).toString(),
       posX: i*2,
       posY: 35+(57*2),
@@ -82,6 +87,7 @@ const generateWindowWallSpots = ()=>{
    
   const generateLongConcreteWallSpots = ()=>{
     return [...Array(23)].map((_, i) => ({
+      name:'longconcretewall',
       n: (118+92+126+57+10+i).toString(),
       posX: 10*2,
       posY: 50+(57*2)+(i*2),
@@ -93,14 +99,18 @@ const generateWindowWallSpots = ()=>{
   
     }));
   }
-/*
+  console.log('seed',process.env.DB_ACTION)
+if (process.env.DB_ACTION==='SEED')
+{
+  console.log('seeding db')
+  Led.collection.drop()
 Led.insertMany(generateBackWallSpots())
 Led.insertMany(generateWindowWallSpots())
 Led.insertMany(generateFrontkWallSpots())
 Led.insertMany(generateClosetWallSpots())
 Led.insertMany(generateShortConcreteWallSpots())
 Led.insertMany(generateLongConcreteWallSpots())
-*/
+}
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 return db
 }

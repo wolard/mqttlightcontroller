@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const LedSchema = new Schema({
+  name:String,
   n: String,
   posX: Number,
   posY: Number,
