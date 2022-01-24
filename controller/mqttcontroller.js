@@ -72,14 +72,20 @@ exports.setAllLights = async (req, res) =>{
 exports.setLights = async(req, res) =>{
    
   
-   req.body.a=req.body.a*255
+   //req.body.a=req.body.a*255
    console.log(req.body.a)
 
   
   
    try {
     await client.publish('leds',JSON.stringify(req.body))
-   
+    for( i=0;i<426;i++)
+       
+    {
+        await  Led.findOneAndUpdate({n:(i.toString())},{r:req.body.r,g:req.body.g,b:req.body.b,a:req.body.a})
+  
+ 
+    } 
     // This line doesn't run until the server responds to the publish
 //	await client.end();
     // This line doesn't run until the client has disconnected without error
