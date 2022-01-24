@@ -10,14 +10,14 @@ client.on('message', async (topic, message)=> {
     // message is Buffer
    //console.log(filo)
    // console.log('done setting led on',message.toString())
-  /* 
+   
  if (topic==='initial')
  {
 
 
 Led.
 find({}).
-select('r g b a n -_id'). // only return the Persons name
+select('r g b a n -_id'). 
 
 exec( async (err, data)=> {
    // console.log(data)
@@ -25,7 +25,7 @@ exec( async (err, data)=> {
  });
 
  }
-*/
+
 
   })
 
