@@ -72,7 +72,7 @@ exports.setAllLights = async (req, res) =>{
 exports.setLights = async(req, res) =>{
    
   
-   //req.body.a=req.body.a*255
+   req.body.a=255-req.body.a
    console.log(req.body.a)
 
   
@@ -94,7 +94,7 @@ exports.setLights = async(req, res) =>{
 } catch (e){
     // Do something about it!
     console.log(e.stack);
-    process.exit();
+    process.e
 }
 
    // res.send('NOT IMPLEMENTED: Book create POST');
