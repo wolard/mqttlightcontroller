@@ -36,11 +36,18 @@ io.on('connection', (socket) => {
   socket.on("disconnect", (reason) => {
   console.log(reason)
   });
-  socket.on("ledwall", (data) => {
+  socket.on("effect", (data) => {
+    console.log('effect',data)   
     MqttController.effect(data)
     //MqttController.setLEd(data)
 
      });
+  socket.on("colorAll", (data) => {
+      console.log('colorall',data)    
+      MqttController.colorAll(data)
+      //MqttController.setLEd(data)
+  
+       });
 });
 
 

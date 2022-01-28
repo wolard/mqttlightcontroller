@@ -103,6 +103,33 @@ exports.effect = async(data) =>{
    
     await client.publish('effect',JSON.stringify(data))
 }
+exports.colorAll = async(data) =>{
+   
+  
+    console.log(data.a)
+ 
+   
+   
+    try {
+     await client.publish('leds',JSON.stringify(data))
+     for( i=0;i<426;i++)
+        
+     {
+         await  Led.findOneAndUpdate({n:(i.toString())},{r:data.r,g:data.g,b:data.b,a:data.a})
+   
+  
+     } 
+     // This line doesn't run until the server responds to the publish
+ //	await client.end();
+     // This line doesn't run until the client has disconnected without error
+     console.log("sent");
+   
+ } catch (e){
+     // Do something about it!
+     console.log(e.stack);
+     process.e
+ }
+}
 exports.addToQueue = async(data) =>{
     filo.push(data)
 }
