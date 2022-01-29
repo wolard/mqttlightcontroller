@@ -79,7 +79,7 @@ exports.setLights = async(req, res) =>{
   
    try {
     await client.publish('leds',JSON.stringify(req.body))
-    for( i=0;i<426;i++)
+    for( i=0;i<450;i++)
        
     {
         await  Led.findOneAndUpdate({n:(i.toString())},{r:req.body.r,g:req.body.g,b:req.body.b,a:req.body.a})
@@ -112,7 +112,7 @@ exports.colorAll = async(data) =>{
    
     try {
      await client.publish('leds',JSON.stringify(data))
-     for( i=0;i<426;i++)
+     for( i=0;i<450;i++)
         
      {
          await  Led.findOneAndUpdate({n:(i.toString())},{r:data.r,g:data.g,b:data.b,a:data.a})

@@ -99,6 +99,20 @@ const generateWindowWallSpots = ()=>{
   
     }));
   }
+  const generateReadingLightSpots = ()=>{
+    return [...Array(24)].map((_, i) => ({
+      name:'readinglight',
+      n: (118+92+126+57+10+23+i).toString(),
+      posX: 10,
+      posY: 15+((57/126)*90)+((i/135)*90),
+      radius:8,
+      r:0,
+      g:0,
+      b:0,
+      a:0
+  
+    }));
+  }
   console.log('seed',process.env.DB_ACTION)
 if (process.env.DB_ACTION==='SEED')
 {
@@ -110,6 +124,7 @@ Led.insertMany(generateFrontkWallSpots())
 Led.insertMany(generateClosetWallSpots())
 Led.insertMany(generateShortConcreteWallSpots())
 Led.insertMany(generateLongConcreteWallSpots())
+Led.insertMany(generateReadingLightSpots())
 }
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 return db
