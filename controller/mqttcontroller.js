@@ -10,6 +10,8 @@ client.on('message', async (topic, message)=> {
     // message is Buffer
    //console.log(filo)
    // console.log('done setting led on',message.toString())
+   if (process.env.MQTT==='ACTIVE')
+    {
    
  if (topic==='initial')
  {
@@ -26,7 +28,7 @@ exec( async (err, data)=> {
 
  }
 
-
+    }
   })
 
 exports.setAllLights = async (req, res) =>{
@@ -49,8 +51,11 @@ exports.setAllLights = async (req, res) =>{
    
   // console.log(jsonarr) 
   //await client.publish('leds',JSON.stringify(req.body))
+  if (process.env.MQTT==='ACTIVE')
+  {
   await client.publish('/rgb',JSON.stringify(req.body.rgbArray))
-    for( i=0;i<req.body.rgbArray.length;i++)
+  } 
+  for( i=0;i<req.body.rgbArray.length;i++)
        
     {
         await  Led.findOneAndUpdate({n:req.body.rgbArray[i].n},{r:req.body.rgbArray[i].r,g:req.body.rgbArray[i].g,b:req.body.rgbArray[i].b,a:req.body.rgbArray[i].a})
@@ -78,7 +83,10 @@ exports.setLights = async(req, res) =>{
   
   
    try {
+    if (process.env.MQTT==='ACTIVE')
+    {
     await client.publish('leds',JSON.stringify(req.body))
+    }
     for( i=0;i<450;i++)
        
     {
@@ -100,8 +108,10 @@ exports.setLights = async(req, res) =>{
    // res.send('NOT IMPLEMENTED: Book create POST');
 };
 exports.effect = async(data) =>{
-   
+    if (process.env.MQTT==='ACTIVE')
+    {
     await client.publish('effect',JSON.stringify(data))
+    }
 }
 exports.colorAll = async(data) =>{
    
@@ -111,8 +121,12 @@ exports.colorAll = async(data) =>{
    
    
     try {
-     await client.publish('leds',JSON.stringify(data))
-     for( i=0;i<450;i++)
+        if (process.env.MQTT==='ACTIVE')
+    {
+     
+        await client.publish('leds',JSON.stringify(data))
+    }
+        for( i=0;i<450;i++)
         
      {
          await  Led.findOneAndUpdate({n:(i.toString())},{r:data.r,g:data.g,b:data.b,a:data.a})
@@ -175,7 +189,10 @@ exports.setLEd = async(data) =>{
    
    
     try {
+        if (process.env.MQTT==='ACTIVE')
+    {
      await client.publish('led',JSON.stringify(data))
+    }
      // This line doesn't run until the server responds to the publish
  //	await client.end();
      // This line doesn't run until the client has disconnected without error

@@ -9,13 +9,27 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
     .catch(error => console.log(error));
  
 const db = mongoose.connection;
+const getfrontnum = (num)=>{
+  num=360-num
+  if(num<324)
+  {
+    num=num-23
+  }
+  return num
+  
+  
 
-const generateFrontkWallSpots = ()=>{
+
+}
+const generateFrontWallSpots = ()=>{
+  
+ 
   return [...Array(126)].map((_, i) => ({
     name:'frontwall',
-    n: (118+92+126-i).toString(),
+   // n: (118+92+126-i).toString(),
+    n: getfrontnum(i).toString(),
     posX: 5+(i/135)*95,
-    posY: 5,
+    posY: 25,
     radius:8,
     r:0,
     g:0,
@@ -30,7 +44,7 @@ const generateWindowWallSpots = ()=>{
       name:'windowwall',
       n: (118+92-i).toString(),
       posX: 96,
-      posY: 5+ (i/126)*95,
+      posY: 25+ (i/126)*95,
       radius:8,
       r:0,
       g:0,
@@ -45,7 +59,7 @@ const generateWindowWallSpots = ()=>{
       name:'backwall',
       n: (i).toString(),
       posX: 9+(i/126)*90,
-      posY: 4+(92/126)*95,
+      posY: 24+(92/126)*95,
       radius:8,
       r:0,
       g:0,
@@ -60,7 +74,7 @@ const generateWindowWallSpots = ()=>{
       name:'closetwall',
       n: (118+92+126+i).toString(),
       posX: 5,
-      posY: 8+(i/126)*93,
+      posY: 28+(i/126)*93,
       radius:8,
       r:0,
       g:0,
@@ -75,7 +89,7 @@ const generateWindowWallSpots = ()=>{
       name:'shortconcretewall',
       n: (118+92+126+57+i).toString(),
       posX: 5+(i/126)*93,
-      posY: 11+(57/126)*92,
+      posY: 31+(57/126)*92,
       radius:8,
       r:0,
       g:0,
@@ -90,7 +104,7 @@ const generateWindowWallSpots = ()=>{
       name:'longconcretewall',
       n: (118+92+126+57+10+i).toString(),
       posX: 10,
-      posY: 15+((57/126)*90)+((i/135)*90),
+      posY: 35+((57/126)*90)+((i/135)*90),
       radius:8,
       r:0,
       g:0,
@@ -100,11 +114,11 @@ const generateWindowWallSpots = ()=>{
     }));
   }
   const generateReadingLightSpots = ()=>{
-    return [...Array(24)].map((_, i) => ({
+    return [...Array(23)].map((_, i) => ({
       name:'readinglight',
-      n: (118+92+126+57+10+23+i).toString(),
-      posX: 10,
-      posY: 15+((57/126)*90)+((i/135)*90),
+      n: (118+92+90+23-i).toString(),
+      posX: ((100/126)+(i/126))*93,
+      posY: 15,
       radius:8,
       r:0,
       g:0,
@@ -120,7 +134,7 @@ if (process.env.DB_ACTION==='SEED')
   Led.collection.drop()
 Led.insertMany(generateBackWallSpots())
 Led.insertMany(generateWindowWallSpots())
-Led.insertMany(generateFrontkWallSpots())
+Led.insertMany(generateFrontWallSpots())
 Led.insertMany(generateClosetWallSpots())
 Led.insertMany(generateShortConcreteWallSpots())
 Led.insertMany(generateLongConcreteWallSpots())
