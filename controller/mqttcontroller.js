@@ -47,7 +47,7 @@ exports.setAllLights = async (req, res) =>{
       //await  Led.findOneAndUpdate({n:rgb.n},{r:rgb.r,g:rgb.g,b:rgb.b,a:rgb.a})
 
   //  await Led.updateMany({n:req.body.n}, {r:req.body.rgbArray.r,g:req.body.rgbArray.g,b:req.body.rgbArray.b,n:req.body.rgbArray.n})
-  let jsonarr=JSON.stringify(req.body.rgbArray)
+  
    
   // console.log(jsonarr) 
   //await client.publish('leds',JSON.stringify(req.body))

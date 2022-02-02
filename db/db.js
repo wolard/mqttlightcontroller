@@ -72,7 +72,7 @@ const generateWindowWallSpots = ()=>{
   const generateClosetWallSpots = ()=>{
     return [...Array(57)].map((_, i) => ({
       name:'closetwall',
-      n: (118+92+126+i).toString(),
+      n: (118+92+126+23+i).toString(),
       posX: 5,
       posY: 28+(i/126)*93,
       radius:8,
@@ -87,7 +87,7 @@ const generateWindowWallSpots = ()=>{
   const generateShortConcreteWallSpots = ()=>{
     return [...Array(10)].map((_, i) => ({
       name:'shortconcretewall',
-      n: (118+92+126+57+i).toString(),
+      n: (118+92+126+23+57+i).toString(),
       posX: 5+(i/126)*93,
       posY: 31+(57/126)*92,
       radius:8,
@@ -102,7 +102,7 @@ const generateWindowWallSpots = ()=>{
   const generateLongConcreteWallSpots = ()=>{
     return [...Array(23)].map((_, i) => ({
       name:'longconcretewall',
-      n: (118+92+126+57+10+i).toString(),
+      n: (118+92+126+23+57+10+i).toString(),
       posX: 10,
       posY: 35+((57/126)*90)+((i/135)*90),
       radius:8,
