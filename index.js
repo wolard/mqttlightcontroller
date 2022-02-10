@@ -48,6 +48,12 @@ io.on('connection', (socket) => {
       //MqttController.setLEd(data)
   
        });
+       socket.on("colorSelected", (data) => {
+        console.log('colorSelected',data)    
+        MqttController.colorSelected(data)
+        //MqttController.setLEd(data)
+    
+         });
 });
 
 

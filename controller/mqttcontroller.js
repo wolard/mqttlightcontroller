@@ -2,6 +2,7 @@ const MQTT = require("async-mqtt");
 const filo=[]
 let feedback
 const Led = require('../models/ledmodel');
+const ledCommands = require('../controller/commands');
 const client = MQTT.connect("tcp://192.168.1.201:1883");
 client.subscribe('initial')
 
@@ -31,11 +32,20 @@ exec( async (err, data)=> {
     }
   })
 
-exports.setAllLights = async (req, res) =>{
+exports.colorSelected = async (data) =>{
     
-    
-    
-    try {
+  
+  
+   
+    let vals=[];
+for(var item of data){
+   vals.push(item.n,item.r,item.g,item.b,item.a); 
+}
+   
+     let res=ledCommands.led.concat(',',vals)+','
+
+     console.log('dot sepatated vals',res.toString())
+     try {
         
   
 
@@ -53,19 +63,18 @@ exports.setAllLights = async (req, res) =>{
   //await client.publish('leds',JSON.stringify(req.body))
   if (process.env.MQTT==='ACTIVE')
   {
-  await client.publish('/rgb',JSON.stringify(req.body.rgbArray))
+  await client.publish('/ledroof',res.toString())
   } 
-  for( i=0;i<req.body.rgbArray.length;i++)
+  for( i=0;i<data.length;i++)
        
     {
-        await  Led.findOneAndUpdate({n:req.body.rgbArray[i].n},{r:req.body.rgbArray[i].r,g:req.body.rgbArray[i].g,b:req.body.rgbArray[i].b,a:req.body.rgbArray[i].a})
+        await  Led.findOneAndUpdate({n:data[i].n},{r:data[i].r,g:data[i].g,b:data[i].b,a:data[i].a})
   
  
     } 
     
 
- 
-    res.status(200).send('ok');
+
 } catch (e){
     // Do something about it!
     console.log(e.stack);
@@ -74,39 +83,7 @@ exports.setAllLights = async (req, res) =>{
 
 
 }
-exports.setLights = async(req, res) =>{
-   
-  
-   req.body.a=255-req.body.a
-   console.log(req.body.a)
 
-  
-  
-   try {
-    if (process.env.MQTT==='ACTIVE')
-    {
-    await client.publish('leds',JSON.stringify(req.body))
-    }
-    for( i=0;i<450;i++)
-       
-    {
-        await  Led.findOneAndUpdate({n:(i.toString())},{r:req.body.r,g:req.body.g,b:req.body.b,a:req.body.a})
-  
- 
-    } 
-    // This line doesn't run until the server responds to the publish
-//	await client.end();
-    // This line doesn't run until the client has disconnected without error
-    console.log("Doune");
-    res.status(200).send('ok');
-} catch (e){
-    // Do something about it!
-    console.log(e.stack);
-    process.e
-}
-
-   // res.send('NOT IMPLEMENTED: Book create POST');
-};
 exports.effect = async(data) =>{
     if (process.env.MQTT==='ACTIVE')
     {
@@ -114,9 +91,16 @@ exports.effect = async(data) =>{
     }
 }
 exports.colorAll = async(data) =>{
+    console.log('data rom frontend',data)
+    let vals=[data.n,data.r,data.g,data.b,data.a];
+console.log(vals)
    
-  
-    console.log(data.a)
+
+   
+     let res=ledCommands.allLeds.concat(',',vals)+','
+
+
+  console.log(res.toString())
  
    
    
@@ -124,7 +108,7 @@ exports.colorAll = async(data) =>{
         if (process.env.MQTT==='ACTIVE')
     {
      
-        await client.publish('leds',JSON.stringify(data))
+       await client.publish('/ledroof',res.toString())
     }
         for( i=0;i<450;i++)
         
@@ -144,38 +128,7 @@ exports.colorAll = async(data) =>{
      process.e
  }
 }
-exports.addToQueue = async(data) =>{
-    filo.push(data)
-}
 
-   
-        setInterval( async () => {
-            if (filo.length>0)
-            {
-                await client.publish('led',JSON.stringify(comm))
-        try {
-            let comm=filo.pop()
-            console.log('command from array',comm)
-            comm.a=1-comm.a
-            if (comm.a===0)
-            {
-              
-                comm.a=0.01
-            }
-            await client.publish('led',JSON.stringify(comm))
-            
-            // This line doesn't run until the server responds to the publish
-        //	await client.end();
-            // This line doesn't run until the client has disconnected without error
-            console.log("sending command to",comm);
-          
-        } catch (e){
-            // Do something about it!
-            console.log(e.stack);
-            process.exit();
-        }
-    }    
-    }, 100);
    
 
 

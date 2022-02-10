@@ -10,8 +10,6 @@ router.post('/getleds', async  (req, res) =>{
     res.send(currLeds)
   })
   
-  // About page route.
-  router.post('/setleds', MqttController.setAllLights)
-  router.post('/setallleds', MqttController.setLights)
+
   
 module.exports = router;
