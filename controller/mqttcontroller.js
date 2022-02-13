@@ -17,14 +17,18 @@ client.on('message', async (topic, message)=> {
  if (topic==='initial')
  {
 
-
+    let vals=[]
 Led.
 find({}).
 select('r g b a n -_id'). 
 
 exec( async (err, data)=> {
-   // console.log(data)
-    await client.publish('/rgb',JSON.stringify(data))
+    for(var item of data){
+        
+        vals.push(item.n,item.r,item.g,item.b,item.a); 
+     }
+    console.log(vals.toString())
+    await client.publish('/ledroof2',vals.toString())
  });
 
  }
@@ -87,7 +91,7 @@ for(var item of data){
 exports.effect = async(data) =>{
     if (process.env.MQTT==='ACTIVE')
     {
-    await client.publish('effect',JSON.stringify(data))
+    await client.publish('/ledroof',JSON.stringify(data))
     }
 }
 exports.colorAll = async(data) =>{
@@ -120,13 +124,46 @@ console.log(vals)
      // This line doesn't run until the server responds to the publish
  //	await client.end();
      // This line doesn't run until the client has disconnected without error
-     console.log("sent");
+
    
  } catch (e){
      // Do something about it!
      console.log(e.stack);
      process.e
  }
+ 
+}
+exports.lightOnOff = async(data) =>{
+    let res=[]
+   console.log('data rom frontend',data)
+ if(data)
+ {
+   let vals=[-1,255,255,255,255]
+  res=ledCommands.allLeds.concat(',',vals)+','
+
+
+ console.log(res.toString())
+ }
+ else
+  {
+   let vals=[-1,0,0,0,0,0]
+   res=ledCommands.allLeds.concat(',',vals)+','
+   console.log(res.toString())
+  }
+  
+   try {
+       if (process.env.MQTT==='ACTIVE')
+   {
+    
+      await client.publish('/ledroof',res.toString())
+   }
+ 
+
+   } catch (e){
+    // Do something about it!
+    console.log(e.stack);
+    process.e
+}
 }
 
    
