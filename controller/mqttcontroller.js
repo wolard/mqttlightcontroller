@@ -27,8 +27,9 @@ exec( async (err, data)=> {
         
         vals.push(item.n,item.r,item.g,item.b,item.a); 
      }
-    console.log(vals.toString())
-    await client.publish('/ledroof2',vals.toString())
+     let res=ledCommands.led.concat(',',vals)+','
+    console.log(res.toString())
+    await client.publish('/ledroof2',res.toString())
  });
 
  }
